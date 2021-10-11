@@ -1,30 +1,43 @@
 /** @type {import('@sveltejs/kit').Config} */
 import { postgraphile } from "postgraphile";
+
 import node from "@sveltejs/adapter-node";
-const postgraphilePlugin = {
+// import { postgraphilePlugin } from "./src/utils/postgraphile";
+
+export const postgraphilePlugin = {
   name: "postgraphile",
   configureServer(server) {
     server.middlewares.use(
       postgraphile(
-        "postgres://postgres_user:password@localhost:5432/some_db",
+        "postgres://basic:justdoit@localhost:5432/menu_db",
         "public",
         {
           watchPg: true,
           graphiql: true,
           enhanceGraphiql: true,
-		//   graphqlRoute: 'http://localhost:3000/graphql'
+          //   graphqlRoute: 'http://localhost:3000/graphql'
         }
       )
     );
   },
 };
+
 const config = {
   kit: {
     // hydrate the <div id="svelte"> element in src/app.html
-    adapter: node(),
+    adapter: node({
+      entryPoint: "./src/server.js",
+    }),
     target: "#svelte",
     vite: {
       plugins: [postgraphilePlugin],
+      ssr: {
+        external: ["pg-native"],
+      },
+      optimizeDeps: {
+        include: [],
+        exclude: ["pg-native"],
+      },
     },
   },
 };
