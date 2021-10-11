@@ -9,7 +9,7 @@ export const postgraphilePlugin = {
   configureServer(server) {
     server.middlewares.use(
       postgraphile(
-        "postgres://basic:justdoit@localhost:5432/menu_db",
+        "postgres://user:password@localhost:5432/some_db",
         "public",
         {
           watchPg: true,
