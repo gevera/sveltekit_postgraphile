@@ -9,7 +9,7 @@ import { postgraphile } from "postgraphile";
 const app = polka();
 
 app.use(
-  postgraphile("postgres://basic:justdoit@localhost:5432/menu_db", "public", {
+  postgraphile("postgres://user:password@localhost:5432/some_db", "public", {
     watchPg: true,
     graphiql: true,
     enhanceGraphiql: true,
