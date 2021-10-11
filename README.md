@@ -36,3 +36,14 @@ npm run build
 ```
 
 > You can preview the built app with `npm run preview`, regardless of whether you installed an adapter. This should _not_ be used to serve your app in production.
+
+-----------
+
+From Benjie
+
+We don't use or touch native internally; it's an issue with your bundler. Here's how we fixed it in the lambda example (which uses webpack):
+
+1. force it to use native (haha, lies) https://github.com/graphile/postgraphile-lambda-example/blob/6a4a10c0d68714192aa3a881d8896d7e62593f8d/webpack.config.js#L21
+2. tell it that the native client is actually the code client   https://github.com/graphile/postgraphile-lambda-example/blob/6a4a10c0d68714192aa3a881d8896d7e62593f8d/webpack.config.js#L28
+
+Such is the nature of software development sometimes.
